@@ -2,38 +2,21 @@ function partition(array, low, high) {
   debugger;
   const pivot = array[high];
   let pivotIndex = high;
-  while (low < high) {
-    if (array[low] > pivot && array[high] < pivot) {
-      [array[low], array[high]] = [array[high], array[low]];
-      low++;
-      continue;
-    }
-    if (array[low] <= pivot) {
-      low++;
-    }
-    if (array[high] >= pivot) {
-      high--;
+  let i = low;
+  while (i < pivotIndex) {
+    const element = array[i];
+    if (element <= pivot) ++i;
+    if (element > pivot) {
+      [array[i], array[pivotIndex - 1]] = [array[pivotIndex - 1], array[i]];
+      --pivotIndex;
     }
   }
-  array[pivotIndex] = array[low];
-  array[low] = pivot;
-  pivotIndex = low;
-  // debugger;
-  // const pivot = array[high];
-  // let pivotIndex = high;
-  // let i = low;
-  // while (i <= pivotIndex) {
-  //   const element = array[i];
-  //   if (element <= pivot) i++;
-  //   if (element > pivot) {
-  //     array[i] = array[pivotIndex - 1];
-  //     array[pivotIndex - 1] = pivot;
-  //     array[pivotIndex] = element;
-  //     pivotIndex--;
-  //   }
-  // }
+  [array[pivotIndex], array[high]] = [array[high], array[pivotIndex]];
+  console.log(array);
   return pivotIndex;
 }
+
+console.log(partition([3, 7, 2, -9, 16, 6], 0, 5));
 
 function quicksort(array, low = 0, high = array.length - 1) {
   if (low < high) {
